@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NZ Goth List</title>
+  <title>NZ [Aotearoa] Goth List</title>
   <style>
     :root {
       color-scheme: dark;
@@ -12,6 +12,7 @@
       --text: #e8e8e8;
       --muted: #888;
       --accent: #7b2cbf;
+      --border: #2a2a2a;
     }
 
     * {
@@ -26,15 +27,12 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      padding: 2rem 1.5rem 4rem;
     }
 
-    main {
-      max-width: 40rem;
+    header {
+      max-width: 48rem;
+      margin: 0 auto 3rem;
       text-align: center;
     }
 
@@ -45,27 +43,916 @@
       margin-bottom: 0.5rem;
     }
 
-    p {
+    .tagline {
       color: var(--muted);
-      margin-bottom: 2rem;
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--surface);
-      border: 1px solid #333;
-      border-radius: 999px;
-      padding: 0.35rem 1rem;
-      font-size: 0.875rem;
+    main {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .city {
+      margin-bottom: 2.5rem;
+    }
+
+    .city h3 {
+      font-size: 1.25rem;
       color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .city-epithet {
+      font-size: 0.9em;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .section {
+      margin-bottom: 1.25rem;
+    }
+
+    .section h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .group,
+    .listing {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .listing-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .listing-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .listing-top .social-links {
+      margin-left: auto;
+    }
+
+
+    .group-name,
+    .listing-title {
+      font-weight: 500;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    /* Bands: Bandcamp only. Festivals/events: Facebook only. DJs: Twitch. */
+    .fb-link,
+    .bc-link,
+    .twitch-link {
+      color: var(--muted);
+      line-height: 0;
+      padding: 0.15rem;
+      border-radius: 0.25rem;
+    }
+
+    .fb-link:hover,
+    .bc-link:hover,
+    .twitch-link:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .twitch-link--todo {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .fb-link svg,
+    .bc-link svg,
+    .twitch-link svg {
+      width: 1rem;
+      height: 1rem;
+      fill: currentColor;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      padding: 0.15rem 0.5rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .aside {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .aside h3 {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    footer {
+      max-width: 48rem;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .doom-scroll {
+      position: fixed;
+      top: 1.25rem;
+      left: 1.25rem;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.8) translateY(-8px);
+      transition: opacity 0.32s ease, transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1), visibility 0.32s ease;
+      filter: grayscale(1);
+      color: #f2f2f2;
+    }
+
+    .doom-scroll.is-visible {
+      opacity: 0.9;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    .doom-scroll__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .doom-scroll__skeleton {
+      width: 3.5rem;
+      height: 5.25rem;
+      overflow: visible;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
+    }
+
+    .skeleton-dancer {
+      transform-origin: 24px 36px;
+      animation: skeleton-sway 0.6s ease-in-out infinite;
+    }
+
+    .skeleton-head {
+      transform-origin: 24px 16px;
+      animation: skeleton-head-bob 0.3s ease-in-out infinite alternate;
+    }
+
+    .skeleton-arm--left {
+      transform-origin: 0 0;
+      animation: skeleton-arm-left 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-arm--right {
+      transform-origin: 0 0;
+      animation: skeleton-arm-right 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-forearm--left {
+      transform-origin: 0 0;
+      animation: skeleton-forearm-left 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-forearm--right {
+      transform-origin: 0 0;
+      animation: skeleton-forearm-right 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-leg--left {
+      transform-origin: 0 0;
+      animation: skeleton-leg-left 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-leg--right {
+      transform-origin: 0 0;
+      animation: skeleton-leg-right 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-shin--left {
+      transform-origin: 0 0;
+      animation: skeleton-shin-left 0.45s ease-in-out infinite;
+    }
+
+    .skeleton-shin--right {
+      transform-origin: 0 0;
+      animation: skeleton-shin-right 0.45s ease-in-out infinite;
+    }
+
+    .doom-scroll__text {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: lowercase;
+      color: #e8e8e8;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+    }
+
+    @keyframes skeleton-sway {
+      0%, 100% { transform: rotate(-5deg) translateY(0); }
+      50% { transform: rotate(5deg) translateY(-3px); }
+    }
+
+    @keyframes skeleton-head-bob {
+      from { transform: rotate(-10deg); }
+      to { transform: rotate(10deg); }
+    }
+
+    @keyframes skeleton-arm-left {
+      0%, 100% { transform: rotate(-55deg); }
+      50% { transform: rotate(35deg); }
+    }
+
+    @keyframes skeleton-arm-right {
+      0%, 100% { transform: rotate(55deg); }
+      50% { transform: rotate(-35deg); }
+    }
+
+    @keyframes skeleton-forearm-left {
+      0%, 100% { transform: rotate(15deg); }
+      50% { transform: rotate(-40deg); }
+    }
+
+    @keyframes skeleton-forearm-right {
+      0%, 100% { transform: rotate(-15deg); }
+      50% { transform: rotate(40deg); }
+    }
+
+    @keyframes skeleton-leg-left {
+      0%, 100% { transform: rotate(-12deg); }
+      50% { transform: rotate(28deg); }
+    }
+
+    @keyframes skeleton-leg-right {
+      0%, 100% { transform: rotate(28deg); }
+      50% { transform: rotate(-12deg); }
+    }
+
+    @keyframes skeleton-shin-left {
+      0%, 100% { transform: rotate(8deg); }
+      50% { transform: rotate(-25deg); }
+    }
+
+    @keyframes skeleton-shin-right {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(25deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .doom-scroll,
+      .skeleton-dancer,
+      .skeleton-head,
+      .skeleton-arm--left,
+      .skeleton-arm--right,
+      .skeleton-forearm--left,
+      .skeleton-forearm--right,
+      .skeleton-leg--left,
+      .skeleton-leg--right,
+      .skeleton-shin--left,
+      .skeleton-shin--right {
+        animation: none !important;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="doom-scroll" id="doom-scroll" aria-hidden="true" hidden>
+    <div class="doom-scroll__inner">
+      <svg class="doom-scroll__skeleton" viewBox="0 0 48 72" aria-hidden="true">
+        <g class="skeleton-dancer" fill="currentColor" stroke="currentColor">
+          <g class="skeleton-torso">
+            <rect x="19.5" y="16" width="9" height="15" rx="2"/>
+            <line x1="21" y1="19.5" x2="27" y2="19.5" stroke="#0a0a0a" stroke-width="0.7"/>
+            <line x1="21" y1="22.5" x2="27" y2="22.5" stroke="#0a0a0a" stroke-width="0.7"/>
+            <line x1="21" y1="25.5" x2="27" y2="25.5" stroke="#0a0a0a" stroke-width="0.7"/>
+            <line x1="21" y1="28.5" x2="27" y2="28.5" stroke="#0a0a0a" stroke-width="0.7"/>
+            <path d="M18.5 31 h11 l-1.2 4.5 h-8.6 z"/>
+          </g>
+
+          <g class="skeleton-head">
+            <circle cx="24" cy="9" r="6.2"/>
+            <circle cx="21.2" cy="7.8" r="1.4" fill="#0a0a0a" stroke="none"/>
+            <circle cx="26.8" cy="7.8" r="1.4" fill="#0a0a0a" stroke="none"/>
+            <path d="M22.5 11.5 Q24 12.8 25.5 11.5" fill="none" stroke="#0a0a0a" stroke-width="0.9" stroke-linecap="round"/>
+            <rect x="20.5" y="12.8" width="7" height="1.6" rx="0.3" fill="#0a0a0a" stroke="none" opacity="0.55"/>
+            <path d="M18.5 14.5 Q24 16.5 29.5 14.5" fill="none" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+
+          <g class="skeleton-arm skeleton-arm--left" transform="translate(20 18)">
+            <line x1="0" y1="0" x2="-9" y2="9" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-9" cy="9" r="1.6" stroke="none"/>
+            <g class="skeleton-forearm skeleton-forearm--left" transform="translate(-9 9)">
+              <line x1="0" y1="0" x2="-5" y2="11" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="-5" cy="11" r="1.4" stroke="none"/>
+            </g>
+          </g>
+
+          <g class="skeleton-arm skeleton-arm--right" transform="translate(28 18)">
+            <line x1="0" y1="0" x2="9" y2="9" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="9" cy="9" r="1.6" stroke="none"/>
+            <g class="skeleton-forearm skeleton-forearm--right" transform="translate(9 9)">
+              <line x1="0" y1="0" x2="5" y2="11" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="5" cy="11" r="1.4" stroke="none"/>
+            </g>
+          </g>
+
+          <g class="skeleton-leg skeleton-leg--left" transform="translate(21 35.5)">
+            <line x1="0" y1="0" x2="-2.5" y2="14" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="-2.5" cy="14" r="1.7" stroke="none"/>
+            <g class="skeleton-shin skeleton-shin--left" transform="translate(-2.5 14)">
+              <line x1="0" y1="0" x2="-3.5" y2="14" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="-3.5" cy="14" r="1.5" stroke="none"/>
+            </g>
+          </g>
+
+          <g class="skeleton-leg skeleton-leg--right" transform="translate(27 35.5)">
+            <line x1="0" y1="0" x2="2.5" y2="14" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="2.5" cy="14" r="1.7" stroke="none"/>
+            <g class="skeleton-shin skeleton-shin--right" transform="translate(2.5 14)">
+              <line x1="0" y1="0" x2="3.5" y2="14" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="3.5" cy="14" r="1.5" stroke="none"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <span class="doom-scroll__text">doom scroll</span>
+    </div>
+  </div>
+  <header>
+    <h1>NZ [Aotearoa] Goth List</h1>
+    <p class="tagline">Kia ora — This is a directory of goth culture, events, artists, djs and communities across New Zealand.</p>
+  </header>
+
   <main>
-    <h1>NZ Goth List</h1>
-    <p>A directory of goth culture, events, and communities across New Zealand.</p>
-    <span class="badge">Coming soon</span>
+    <h2>Current Bands, Solo Projects and Clubs</h2>
+
+    <section class="city">
+      <h3>Auckland</h3>
+
+      <div class="section">
+        <h4>Clubs</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Auckland Goth Night</span>
+                <span class="tags"><span class="tag">Ding Dong Lounge</span></span>
+                <span class="meta">DJs Passion Crypt and Grave Digger</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/actupentertainmentnz" target="_blank" rel="noopener noreferrer" aria-label="Auckland Goth Night on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Dark Eighties</span>
+                <span class="tags"><span class="tag">Whammy Bar</span></span>
+                <span class="meta">DJ Pennie Black and Kailee Raven</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/thedarkeighties" target="_blank" rel="noopener noreferrer" aria-label="Dark Eighties on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Vampire Disko</span>
+                <span class="tags"><span class="tag">Whammy Bar</span></span>
+                <span class="meta">Goth, wave, cult hits + vampire attire</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/events/1025234046658890/" target="_blank" rel="noopener noreferrer" aria-label="Vampire Disko on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>DJs Twitch</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Mortem Soma</span>
+              </div>
+              <div class="social-links"><a class="twitch-link twitch-link--todo" href="#" aria-label="Mortem Soma on Twitch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 2.571v17.143L6 22.286l4.715-2.571 4.286 2.571 4.714-2.571V7.714L15 5.143l-4.286 2.571L6 5.143V0zm.857 15.428v-8.57l4.286 2.57v8.572L6.857 15.43z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Russell Roach</span>
+              </div>
+              <div class="social-links"><a class="twitch-link twitch-link--todo" href="#" aria-label="Russell Roach on Twitch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 2.571v17.143L6 22.286l4.715-2.571 4.286 2.571 4.714-2.571V7.714L15 5.143l-4.286 2.571L6 5.143V0zm.857 15.428v-8.57l4.286 2.57v8.572L6.857 15.43z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>Bands and solo projects</h4>
+        <ul>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Lichtbeuger</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://lichtbeuger.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Lichtbeuger on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Talmar</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://talmar.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Talmar on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Creassault</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://creassault.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Creassault on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Hieronymus Bosch</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://hieronymusbosch.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Hieronymus Bosch on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Stars and The Underground</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://starsandtheunderground.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Stars and The Underground on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Echomaticia</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://echomatica.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Echomaticia on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">General Kala</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://generalkala.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="General Kala on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Dolmacher</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/dolmacher" target="_blank" rel="noopener noreferrer" aria-label="Dolmacher on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Flout</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://adamcolegrove.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Flout on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Kelly Lynch Music</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://kellylynch.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Kelly Lynch Music on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">myname is VII</span>  
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://mynameisviii.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="myname is VII on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="city">
+      <h3>New Plymouth</h3>
+
+      <div class="section">
+        <h4>Bands and solo projects</h4>
+        <ul>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Plague Ditch</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://plagueditch.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Plague Ditch on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="city">
+      <h3>Tauranga</h3>
+
+      <div class="section">
+        <h4>Clubs</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Goth Night</span>
+                <span class="meta">DJ Kisses With Blood and Abigail Rymail</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="city">
+      <h3>Wellington</h3>
+
+      <div class="section">
+        <h4>Festival</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">The Gathering Shadows — "Hot Goth Summer"</span>
+                <span class="tags"><span class="tag">Valhalla</span></span>
+                <span class="meta">Hayden / Lucy / Cordelia / Ben</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/shadowplaynz" target="_blank" rel="noopener noreferrer" aria-label="The Gathering Shadows on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>Clubs</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Dark Entries</span>
+                <span class="tags"><span class="tag">Moon</span></span>
+                <span class="meta">DJ Virago</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/share/g/1GMj9mhLXm/" target="_blank" rel="noopener noreferrer" aria-label="Dark Entries on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Dark Eighties</span>
+                <span class="tags"><span class="tag">Valhalla</span></span>
+                <span class="meta">DJs Virago and Matai</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/thedarkeighties" target="_blank" rel="noopener noreferrer" aria-label="Dark Eighties on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Movement</span>
+                <span class="tags"><span class="tag">Valhalla</span></span>
+                <span class="meta">DJs Matai, Nightmare, DJ Coffin Nails</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/movementclubnight" target="_blank" rel="noopener noreferrer" aria-label="Movement on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>Bands and solo projects</h4>
+        <ul>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Breaches</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://breaches.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Breaches on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">The Blue Summer</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://bluesummerband.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="The Blue Summer on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Wallowitch</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://wallowitch.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Wallowitch on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Radar Angel</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://radarangel.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Radar Angel on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Pangolin Ghosts</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://pangolinghosts.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Pangolin Ghosts on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Serenna</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://serenna.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Serenna on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Minas Veil</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://minasveil.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Minas Veil on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Mercury Feng</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://xiaofeng.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Mercury Feng on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Nulity</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://nulity.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Nulity on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="city">
+      <h3>Christchurch</h3>
+
+      <div class="section">
+        <h4>Clubs</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Oh My Goth</span>
+                <span class="tags"><span class="tag">Sanctuary Events</span></span>
+                <span class="meta">Wade Byers</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/SanctuaryEventsNZ" target="_blank" rel="noopener noreferrer" aria-label="Oh My Goth on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>Bands and solo projects</h4>
+        <ul>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Marsha</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://marshanz.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Marsha on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Other Voices</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/OtherVoicesNZ" target="_blank" rel="noopener noreferrer" aria-label="Other Voices on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Social Union</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://socialunion.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Social Union on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="city">
+      <h3>Dunedin</h3>
+
+      <div class="section">
+        <h4>Bands and solo projects</h4>
+        <ul>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Robots In Love</span>
+              </div>
+              <div class="social-links"><a class="bc-link" href="https://robotsinlove.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Robots In Love on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+            </div>
+          </li>
+          <li class="group">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="group-name">Rehumanize</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/groups/3441243747/user/61570777211779/" target="_blank" rel="noopener noreferrer" aria-label="Rehumanize on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h4>Bloggers</h4>
+        <ul>
+          <li class="listing">
+            <div class="listing-top">
+              <div class="listing-info">
+                <span class="listing-title">Black Friday</span>
+              </div>
+              <div class="social-links"><a class="fb-link" href="https://www.facebook.com/itisblackfriday" target="_blank" rel="noopener noreferrer" aria-label="Blogger Black Friday on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="aside">
+      <h3>Occasional gate crashers from across the ditch</h3>
+      <ul>
+        <li class="listing">
+          <div class="listing-top">
+            <div class="listing-info">
+              <span class="listing-title">Sounds Like Winter</span>
+            </div>
+            <div class="social-links"><a class="bc-link" href="https://sounds-like-winter.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Sounds Like Winter on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+          </div>
+        </li>
+        <li class="listing">
+          <div class="listing-top">
+            <div class="listing-info">
+              <span class="listing-title">Plum Green</span>
+            </div>
+            <div class="social-links"><a class="bc-link" href="https://plumgreen.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Plum Green on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="aside">
+      <h3>Overseas bands with Kiwi connections</h3>
+      <ul>
+        <li class="listing">
+          <div class="listing-top">
+            <div class="listing-info">
+              <span class="listing-title">Ashes Fallen (Michelle Perry)</span>
+            </div>
+            <div class="social-links"><a class="bc-link" href="https://ashesfallenmusic.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Ashen Fallen on Bandcamp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-12.5H24l-7.5 12.5H0z"/></svg></a></div>
+          </div>
+        </li>
+      </ul>
+    </section>
   </main>
+
+  <footer>
+    <a href="mailto:duskaotearoa@gmail.com">duskaotearoa@gmail.com</a>
+  </footer>
+
+  <script>
+    (function () {
+      var el = document.getElementById('doom-scroll');
+      if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var scrollEndTimeout;
+      var hideTimeout;
+      var fadeMs = 320;
+      var stopDelay = 140;
+
+      function showDoomScroll() {
+        window.clearTimeout(hideTimeout);
+        el.hidden = false;
+        window.requestAnimationFrame(function () {
+          el.classList.add('is-visible');
+        });
+      }
+
+      function hideDoomScroll() {
+        el.classList.remove('is-visible');
+        hideTimeout = window.setTimeout(function () {
+          if (!el.classList.contains('is-visible')) {
+            el.hidden = true;
+          }
+        }, fadeMs);
+      }
+
+      window.addEventListener('scroll', function () {
+        showDoomScroll();
+        window.clearTimeout(scrollEndTimeout);
+        scrollEndTimeout = window.setTimeout(hideDoomScroll, stopDelay);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
